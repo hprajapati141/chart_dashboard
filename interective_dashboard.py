@@ -8,7 +8,7 @@ import mplfinance as mpl
 import math
 
 stock_excel=pd.read_excel('chartink_list.xlsx').fillna("")
-stock_list=stock_excel['Symbol'].tolist()
+stock_list=stock_excel['stock(m_cap_1000)'].tolist()
 ind_list=stock_excel['industry'].tolist()
 industry_excel=pd.read_excel('industry_wise_seg.xlsx','Sheet2')
 
