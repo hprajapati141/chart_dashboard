@@ -39,7 +39,7 @@ df = stock.history(period="100d")
 # Try to plot the data using mplfinance
 try:
     
-    fig1, ax = mpl.plot(df, type='candle',style='charles', volume=True, figsize=(20, 10),returnfig=True)
+    fig1 = mpl.plot(df, type='candle',style='charles', volume=True, figsize=(20, 10),returnfig=True)
     st.pyplot(fig1)
 except Exception as e:
     st.write("Error:", e)
