@@ -36,7 +36,7 @@ st.markdown("""
 """)
 
 # Get the selected rows
-selected_rows = [row for i, row in enumerate(df.iterrows()) if table.row(i).get_class_list().contains('selected')]
+selected_rows = [row for i, row in enumerate(df.iterrows()) if st.table.row(i).get_class_list().contains('selected')]
 
 # Display selected rows
 if selected_rows:
