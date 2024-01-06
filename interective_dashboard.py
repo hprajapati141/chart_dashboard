@@ -8,6 +8,7 @@ import mplfinance as mpl
 import math
 st.write("Hello")
 
+
 # Create a sample DataFrame
 data = {'Column1': [1, 2, 3, 4, 5],
         'Column2': ['A', 'B', 'C', 'D', 'E']}
@@ -16,30 +17,50 @@ df = pd.DataFrame(data)
 # Streamlit app
 st.title('Clickable DataFrame Rows')
 
-# Display the DataFrame as a table
-table = st.table(df)
-
-# Add a custom JavaScript function to capture row clicks
-st.markdown("""
-    <script>
-        const table = document.querySelector('.dataframe table');
-
-        table.addEventListener('click', function(event) {
-            const targetRow = event.target.closest('tr');
-            if (targetRow) {
-                const rowIndex = Array.from(targetRow.parentNode.children).indexOf(targetRow);
-                const selectedRow = document.querySelector(`.dataframe table tr:nth-child(${rowIndex + 1})`);
-                selectedRow.classList.toggle('selected');
-            }
-        });
-    </script>
+# Display the DataFrame as a custom table with HTML
+st.write("""
+    <style>
+        .custom-table tr:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+        .selected {
+            background-color: lightblue !important;
+        }
+    </style>
 """)
 
-# Get the selected rows
-selected_rows = [row for i, row in enumerate(df.iterrows()) if st.table.row(i).get_class_list().contains('selected')]
+# Display the DataFrame as a custom table using HTML
+st.write("""
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Column1</th>
+                <th>Column2</th>
+            </tr>
+        </thead>
+        <tbody>
+""")
 
-# Display selected rows
-if selected_rows:
-    st.write("Selected Rows:")
-    for index, row in selected_rows:
-        st.write(f"Index: {index}, Data: {row}")
+# Populate the table rows
+for index, row in df.iterrows():
+    st.write(f"""
+        <tr onclick="highlightRow(this)">
+            <td>{row['Column1']}</td>
+            <td>{row['Column2']}</td>
+        </tr>
+    """)
+
+st.write("""
+        </tbody>
+    </table>
+""")
+
+# JavaScript function to highlight the clicked row
+st.write("""
+    <script>
+        function highlightRow(row) {
+            row.classList.toggle('selected');
+        }
+    </script>
+""")
